@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TileTools
 {
@@ -10,5 +11,6 @@ namespace TileTools
 		public virtual void OnRemovedFromWorld() { }
 
 		public virtual void OnUpdate(GameTime time) { }
+		public virtual void OnDraw(SpriteBatch batch) { }
 	}
 }

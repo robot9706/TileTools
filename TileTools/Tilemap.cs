@@ -118,6 +118,16 @@ namespace TileTools
 			e.OnRemovedFromWorld();
 		}
 
+		public Vector2 ConvertPosition(Vector2 worldPosition)
+		{
+			return worldPosition - ViewOffset;
+		}
+
+		public Vector2 ConvertPosition(int tileX, int tileY)
+		{
+			return ConvertPosition(new Vector2(tileX * _tileSize.X, tileY * _tileSize.Y));
+		}
+
 		public void Update(GameTime time)
 		{
 			for (int e = _entityList.Count - 1; e >= 0; e--)
@@ -151,11 +161,14 @@ namespace TileTools
 						if (tile.Tileset == -1)
 							continue;
 
-						Vector2 pos = new Vector2(x * _tileSize.X, y * _tileSize.Y) - ViewOffset;
-
-						_renderers[tile.Tileset].DrawTile(batch, tile.Tile, pos);
+						_renderers[tile.Tileset].DrawTile(batch, tile.Tile, ConvertPosition(x, y));
 					}
 				}
+			}
+
+			foreach(Entity e in _entityList)
+			{
+				e.OnDraw(batch);
 			}
 		}
 	}
